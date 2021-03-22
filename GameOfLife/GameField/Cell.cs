@@ -9,6 +9,7 @@ namespace GameOfLife.GameField
 {
     class Cell
     {
-        //public IEn
+        public IEntity Entity { get; set; }
+        public int FoodCount { get; set; }
     }
 }

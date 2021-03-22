@@ -9,13 +9,46 @@ namespace GameOfLife.GameField
 {
     class Field
     {
-        private IEntity[,] grid;
+        private int width;
+        private int hight;
+        private List<IEntity> entities;
+        private List<int> food;
 
-
-
-        public IEntity GetGridEntiry(Point position)
+        public Field(int width, int hight)
         {
-            return grid[position.X, position.Y];
+            this.width = width;
+            this.hight = hight;
+        }
+
+        public void Setntity(Point position, IEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEntity GetEntiry(Point position)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void SetFood(Point position, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetFood(Point postion)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateField()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void UpdateCell(int i, int j)
+        {
+            throw new NotImplementedException();
         }
     }
 }

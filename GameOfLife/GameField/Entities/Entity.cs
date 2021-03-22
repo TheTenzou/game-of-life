@@ -24,9 +24,12 @@ namespace GameOfLife.GameField.Entities
         public Point Destination { get; set; }
 
         public Status Status { get; set; }
+        
+        public Point Position { get; set; }
 
+        public int Health { get; set; }
 
-        public Entity()
+        public Entity(Gender gender)
         {
 
         }

@@ -15,5 +15,9 @@ namespace GameOfLife.GameField.Entities
         Point Destination { get; set; }
 
         Status Status { get; set; }
+
+        Point Position { get; set; }
+
+        int Health { get; set; }
     }
 }
