@@ -8,6 +8,7 @@ namespace GameOfLife.GameField.Entities
 {
     enum Status
     {
+        EMPTY,
         DEAD,
         ALIVE
     }

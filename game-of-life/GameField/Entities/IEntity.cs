@@ -8,5 +8,12 @@ namespace GameOfLife.GameField.Entities
 {
     interface IEntity
     {
+        Gender Gender { get; }
+
+        int FoodAmount { get; set; }
+
+        Point Destination { get; set; }
+
+        Status Status { get; set; }
     }
 }
