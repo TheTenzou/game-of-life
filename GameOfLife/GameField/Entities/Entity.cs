@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.GameField.Entities
 {
-    class Entity : IEntity
+    class Entity : IEntity, ITarget
     {
         public Gender Gender { get; }
 
@@ -21,7 +21,7 @@ namespace GameOfLife.GameField.Entities
             }
         }
 
-        public Point Destination { get; set; }
+        public ITarget Target { get; set; }
 
         public Status Status { get; set; }
         

@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.GameField.Entities
+namespace GameOfLife.GameField
 {
-    class Point
+    interface ITarget
     {
-        public int X { get; set; }
-
-        public int Y { get; set; }
+        Point Position { get; set; }
     }
 }

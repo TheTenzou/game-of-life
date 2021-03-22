@@ -12,7 +12,7 @@ namespace GameOfLife.GameField
         private int width;
         private int hight;
         private List<IEntity> entities;
-        private List<int> food;
+        private List<Food> food;
 
         public Field(int width, int hight)
         {
@@ -20,33 +20,28 @@ namespace GameOfLife.GameField
             this.hight = hight;
         }
 
-        public void Setntity(Point position, IEntity entity)
+        public void AddEntity(IEntity entity)
         {
-            throw new NotImplementedException();
+            entities.Add(entity);
         }
 
-        public IEntity GetEntiry(Point position)
+        public List<IEntity> GetEntities(Point position)
         {
-            throw new NotImplementedException();
+            return entities;
         }
 
 
-        public void SetFood(Point position, int amount)
+        public void AddFood(Food food)
         {
-            throw new NotImplementedException();
+            this.food.Add(food);
         }
 
-        public int GetFood(Point postion)
+        public List<Food> GetFood()
         {
-            throw new NotImplementedException();
+            return food;
         }
 
         public void UpdateField()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void UpdateCell(int i, int j)
         {
             throw new NotImplementedException();
         }

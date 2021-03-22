@@ -12,7 +12,7 @@ namespace GameOfLife.GameField.Entities
 
         int FoodAmount { get; set; }
 
-        Point Destination { get; set; }
+        ITarget Target { get; set; }
 
         Status Status { get; set; }
 
