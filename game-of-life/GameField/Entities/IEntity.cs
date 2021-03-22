@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.GameField.Entities
 {
-    enum Status
+    interface IEntity
     {
-        DEAD,
-        ALIVE
     }
 }

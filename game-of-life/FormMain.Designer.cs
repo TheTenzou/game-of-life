@@ -1,5 +1,5 @@
 ﻿
-namespace game_of_life
+namespace GameOfLife
 {
     partial class FormMain
     {

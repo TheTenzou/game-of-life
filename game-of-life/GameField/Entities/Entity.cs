@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game_of_life.GameField.Entities
+namespace GameOfLife.GameField.Entities
 {
-    class Entity
+    class Entity : IEntity
     {
         public Gender Gender { get; }
 

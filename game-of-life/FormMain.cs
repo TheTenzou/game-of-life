@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace game_of_life
+namespace GameOfLife
 {
     public partial class FormMain : Form
     {
