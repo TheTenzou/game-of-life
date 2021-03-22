@@ -11,8 +11,7 @@ namespace GameOfLife.GameField
     {
         private int width;
         private int hight;
-        private List<IEntity> entities;
-        private List<Food> food;
+        private List<ITarget> targets;
 
         public Field(int width, int hight)
         {
@@ -20,33 +19,17 @@ namespace GameOfLife.GameField
             this.hight = hight;
         }
 
-        public void AddEntity(IEntity entity)
-        {
-            entities.Add(entity);
-        }
-
-        public List<IEntity> GetEntities(Point position)
-        {
-            return entities;
-        }
-
-
-        public void AddFood(Food food)
-        {
-            this.food.Add(food);
-        }
-
-        public List<Food> GetFood()
-        {
-            return food;
-        }
 
         public void UpdateField()
         {
-            foreach(IEntity entity in entities)
+            foreach(ITarget target in targets)
             {
-                entity.PickTarget(entities);
-                entity.MoveToTarget();
+                if (target is IEntity)
+                {
+                    IEntity entity = (IEntity)target;
+                    entity.PickTarget(targets);
+                    entity.MoveToTarget();
+                }
             }
         }
     }

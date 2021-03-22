@@ -34,7 +34,7 @@ namespace GameOfLife.GameField.Entities
             this.FoodAmount = 20;
         }
 
-        public void PickTarget(List<IEntity> entities)
+        public void PickTarget(List<ITarget> entities)
         {
             throw new NotImplementedException();
         }
