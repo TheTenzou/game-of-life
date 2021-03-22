@@ -27,11 +27,11 @@ namespace GameOfLife.GameField.Entities
         
         public Point Position { get; set; }
 
-        public int Health { get; set; }
-
         public Entity(Gender gender)
         {
-
+            this.Gender = gender;
+            this.Status = Status.ALIVE;
+            this.FoodAmount = 20;
         }
     }
 }
