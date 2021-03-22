@@ -32,5 +32,10 @@ namespace GameOfLife.GameField
                 }
             }
         }
+
+        public void GenerateFood()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
