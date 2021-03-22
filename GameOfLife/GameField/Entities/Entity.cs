@@ -24,5 +24,11 @@ namespace GameOfLife.GameField.Entities
         public Point Destination { get; set; }
 
         public Status Status { get; set; }
+
+
+        public Entity()
+        {
+
+        }
     }
 }

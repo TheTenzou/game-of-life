@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameOfLife.GameField.Entities;
 
-namespace GameOfLife.GameField.Entities
+namespace GameOfLife.GameField
 {
-    enum Status
+    class Cell
     {
-        EMPTY,
-        DEAD,
-        ALIVE
+        //public IEn
     }
 }

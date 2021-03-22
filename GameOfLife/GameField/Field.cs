@@ -11,9 +11,11 @@ namespace GameOfLife.GameField
     {
         private IEntity[,] grid;
 
-        public void GetGridEntiry(Point position)
+
+
+        public IEntity GetGridEntiry(Point position)
         {
-            
+            return grid[position.X, position.Y];
         }
     }
 }
