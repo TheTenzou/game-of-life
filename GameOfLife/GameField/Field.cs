@@ -43,7 +43,11 @@ namespace GameOfLife.GameField
 
         public void UpdateField()
         {
-            throw new NotImplementedException();
+            foreach(IEntity entity in entities)
+            {
+                entity.PickTarget(entities);
+                entity.MoveToTarget();
+            }
         }
     }
 }

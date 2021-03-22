@@ -33,5 +33,15 @@ namespace GameOfLife.GameField.Entities
             this.Status = Status.ALIVE;
             this.FoodAmount = 20;
         }
+
+        public void PickTarget(List<IEntity> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveToTarget()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

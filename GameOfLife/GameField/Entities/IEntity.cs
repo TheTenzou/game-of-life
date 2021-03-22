@@ -17,5 +17,9 @@ namespace GameOfLife.GameField.Entities
         Status Status { get; set; }
 
         Point Position { get; set; }
+
+        void PickTarget(List<IEntity> entities);
+
+        void MoveToTarget();
     }
 }
