@@ -43,26 +43,33 @@ namespace GameOfLife.GameField.Entities
             {
                 if (this.FoodAmount < 10)
                 {
-                    Target = lookForFood(targets);// add random
+                    List<ITarget> listOfFood = targets.Where(t => t is Food).ToList();
+
+                    if (listOfFood.Count > 0)
+                    {
+                        Target = lookForFood(targets);
+                    }
                 }
                 return;
             }
             pickRandomTarget(targets);
         }
 
-        private ITarget lookForFood(List<ITarget> targets)
+        private ITarget lookForFood(List<ITarget> listOfFood)
         {
-
-            List<ITarget> listOfFood = targets.Where(t => t is Food).ToList();
-
             ITarget closestFood = listOfFood.FirstOrDefault(null);
 
-            double distance = 0.0;
+            double distanceToClosest = 0.0;
 
             foreach(ITarget target in listOfFood)
             {
-                if 
+                if (distanceToClosest < this.Distance(target))
+                {
+                    closestFood = target;
+                    distanceToClosest = this.Distance(target);
+                }
             }
+            return closestFood;
         }
 
         private void pickRandomTarget(List<ITarget> targets)
