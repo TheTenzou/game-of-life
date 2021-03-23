@@ -49,10 +49,10 @@ namespace GameOfLife
 
         void drawItems(PaintEventArgs e, ITarget item)
         {
+            graphics = e.Graphics;
             if (item is Food)
             {
-                graphics = e.Graphics;
-                graphics.DrawEllipse(Pens.Green, getRectangle(item.Position));
+                graphics.FillEllipse(Brushes.Green, getRectangle(item.Position));
             }
             else if (item is Entity)
             {
@@ -66,10 +66,10 @@ namespace GameOfLife
             switch (entity.Gender)
             {
                 case Gender.MALE:
-                    graphics.DrawEllipse(Pens.LightBlue, getRectangle(item.Position));
+                    graphics.FillEllipse(Brushes.LightBlue, getRectangle(item.Position));
                     break;
                 case Gender.FEMALE:
-                    graphics.DrawEllipse(Pens.Crimson, getRectangle(item.Position));
+                    graphics.FillEllipse(Brushes.Crimson, getRectangle(item.Position));
                     break;
             }
         }
@@ -82,7 +82,7 @@ namespace GameOfLife
             int newX = (int)(point.X * (((double)windowWidth) / width));
             int newY = (int)(point.Y * (((double)windowHight) / hight));
 
-            return new Rectangle(newX, newY, 5, 5);
+            return new Rectangle(newX, newY, 10, 10);
         }
     }
 }

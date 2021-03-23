@@ -21,6 +21,18 @@ namespace GameOfLife.GameField
 
             Targets = new List<ITarget>();
 
+            Entity entityMale = new Entity(Gender.MALE);
+            entityMale.Position = new Point(170, 120);
+            entityMale.FoodAmount = 20;
+
+            Targets.Add(entityMale);
+
+            Entity entityFemale = new Entity(Gender.FEMALE);
+            entityFemale.Position = new Point(175, 125);
+            entityFemale.FoodAmount = 20;
+
+            Targets.Add(entityFemale);
+
             GenerateFood();
         }
 

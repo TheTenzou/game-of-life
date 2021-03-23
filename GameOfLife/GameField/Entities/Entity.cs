@@ -11,14 +11,15 @@ namespace GameOfLife.GameField.Entities
         private Random random = new Random();
         public Gender Gender { get; }
 
+        private int food;
         public int FoodAmount
         {
-            get => FoodAmount;
+            get => food;
             set
             {
-                if (value > 100) FoodAmount = 100;
-                else if (value < 1) FoodAmount = 0;
-                else FoodAmount = value;
+                if (value > 100) food = 100;
+                else if (value < 1) food = 0;
+                else food = value;
             }
         }
 
