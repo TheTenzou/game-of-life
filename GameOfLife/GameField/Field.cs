@@ -11,7 +11,7 @@ namespace GameOfLife.GameField
     {
         private int width;
         private int hight;
-        private List<ITarget> targets;
+        public List<ITarget> Targets { get; }
         private Random random = new Random();
 
         public Field(int width, int hight)
@@ -19,25 +19,21 @@ namespace GameOfLife.GameField
             this.width = width;
             this.hight = hight;
 
-            GenerateFood();
-        }
-
-        public Field()
-        {
-            this.width = 320;
-            this.hight = 240;
+            Targets = new List<ITarget>();
 
             GenerateFood();
         }
+
+        public Field() : this(320, 240) { } 
 
         public void UpdateField()
         {
-            foreach(ITarget target in targets)
+            foreach(ITarget target in Targets)
             {
                 if (target is IEntity)
                 {
                     IEntity entity = (IEntity)target;
-                    entity.PickTarget(targets);
+                    entity.PickTarget(Targets);
                     entity.MoveToTarget();
                 }
             }
@@ -53,7 +49,7 @@ namespace GameOfLife.GameField
                     random.Next(0, width), 
                     random.Next(0, hight)
                 );
-                targets.Add(target);
+                Targets.Add(target);
             }
         }
     }
