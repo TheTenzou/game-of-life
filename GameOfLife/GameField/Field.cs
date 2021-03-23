@@ -19,7 +19,7 @@ namespace GameOfLife.GameField
             this.width = width;
             this.hight = hight;
 
-            initFood();
+            GenerateFood();
         }
 
         public Field()
@@ -27,21 +27,7 @@ namespace GameOfLife.GameField
             this.width = 320;
             this.hight = 240;
 
-            initFood();
-        }
-
-        private void initFood()
-        {
-            int foodAmount = random.Next(0, 100);
-            for (int i = 0; i < foodAmount; i++)
-            {
-                ITarget target = new Food(
-                    random.Next(0, 10), 
-                    random.Next(0, width), 
-                    random.Next(0, hight)
-                );
-                targets.Add(target);
-            }
+            GenerateFood();
         }
 
         public void UpdateField()
@@ -59,7 +45,16 @@ namespace GameOfLife.GameField
 
         public void GenerateFood()
         {
-
+            int foodAmount = random.Next(0, 100);
+            for (int i = 0; i < foodAmount; i++)
+            {
+                ITarget target = new Food(
+                    random.Next(0, 30), 
+                    random.Next(0, width), 
+                    random.Next(0, hight)
+                );
+                targets.Add(target);
+            }
         }
     }
 }
