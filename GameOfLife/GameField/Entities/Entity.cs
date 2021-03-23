@@ -28,11 +28,20 @@ namespace GameOfLife.GameField.Entities
         
         public Point Position { get; set; }
 
+        private int width = 320;
+        private int hight = 240;
+
         public Entity(Gender gender)
         {
             this.Gender = gender;
             this.Status = Status.ALIVE;
             this.FoodAmount = 20;
+        }
+
+        public Entity(Gender gender, int width, int hight) : this(gender)
+        {
+            this.width = width;
+            this.hight = hight;
         }
 
         public void PickTarget(List<ITarget> targets)
@@ -101,10 +110,39 @@ namespace GameOfLife.GameField.Entities
 
             return false;
         }
-        
+
         public void MoveToTarget()
         {
-            throw new NotImplementedException();
+            if (Target == null)
+            {
+                moveInRandomDirection();
+            }
+            else
+            { 
+                int velocity = 2;
+
+                double tang = (Target.Position.X - this.Position.X) / (Target.Position.Y - this.Position.Y);
+
+                int incX = (int)(velocity * tang);
+                int incY = (int)(velocity * tang);
+            }
+        }
+
+        private void moveInRandomDirection()
+        {
+            int velocity = 2;
+            double direction = random.NextDouble() * 2 * Math.PI;
+
+            int incX = (int)(velocity * Math.Cos(direction));
+            int incY = (int)(velocity * Math.Sin(direction));
+
+            if (Position.X + incX < 0) incX = -incX;
+            if (Position.X + incX > width) incX = -incX;
+            if (Position.Y + incY < 0) incY = -incY;
+            if (Position.Y + incY > hight) incY = -incY;
+
+            Position.X += incX;
+            Position.Y += incY;
         }
     }
 }
