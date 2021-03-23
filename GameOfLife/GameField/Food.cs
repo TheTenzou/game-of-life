@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.GameField
 {
-    class Food : ITarget
+    class Food : AbstractTarget, ITarget
     {
         public Point Position { get; set; }
 

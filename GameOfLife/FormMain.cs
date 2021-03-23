@@ -16,7 +16,7 @@ namespace GameOfLife
         public FormMain()
         {
             InitializeComponent();
-            new Field(10);
+            new Field(10, 10);
         }
     }
 }

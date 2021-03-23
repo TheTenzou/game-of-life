@@ -52,6 +52,7 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameField\AbstractTarget.cs" />
     <Compile Include="GameField\Entities\Entity.cs" />
     <Compile Include="GameField\Entities\Gender.cs" />
     <Compile Include="GameField\Entities\IEntity.cs" />

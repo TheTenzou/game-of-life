@@ -18,7 +18,7 @@ namespace GameOfLife.GameField.Entities
 
         Point Position { get; set; }
 
-        void PickTarget(List<ITarget> entities);
+        void PickTarget(List<ITarget> targets);
 
         void MoveToTarget();
     }
