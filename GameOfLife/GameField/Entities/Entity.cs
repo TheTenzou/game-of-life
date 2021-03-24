@@ -27,8 +27,6 @@ namespace GameOfLife.GameField.Entities
 
         public Status Status { get; set; }
         
-        public Point Position { get; set; }
-
         private int width = 320;
         private int hight = 240;
 
@@ -47,7 +45,7 @@ namespace GameOfLife.GameField.Entities
 
         public void PickTarget(List<ITarget> targets)
         {
-            int rand = random.Next() % 100;
+            //int rand = random.Next() % 100;
 
             if (this.Target != null)
             {
@@ -67,7 +65,7 @@ namespace GameOfLife.GameField.Entities
 
         private ITarget lookForFood(List<ITarget> listOfFood)
         {
-            ITarget closestFood = listOfFood.FirstOrDefault(null);
+            ITarget closestFood = listOfFood.First();
 
             double distanceToClosest = 0.0;
 
@@ -86,11 +84,11 @@ namespace GameOfLife.GameField.Entities
         {
             for (int i = 0; i < targets.Count; i++)
             {
-                int index = random.Next(targets.Count);
+                int index = random.Next(0, targets.Count);
 
                 ITarget newTarget = targets[index];
                 
-               if (isTargetValid(newTarget))
+                if (isTargetValid(newTarget))
                 {
                     this.Target = newTarget;
                     return;
@@ -119,25 +117,31 @@ namespace GameOfLife.GameField.Entities
                 moveInRandomDirection();
             }
             else
-            { 
-                int velocity = 2;
+            {
+                double len = this.Distance(Target);
+                int incX = (int) ((Target.Position.X - this.Position.X) / len * 2) ;
+                int incY = (int) ((Target.Position.Y - this.Position.Y) / len * 2) ;
 
-                double tang = (Target.Position.X - this.Position.X) / (Target.Position.Y - this.Position.Y);
-
-                int incX = (int)(velocity * tang);
-                int incY = (int)(velocity * tang);
 
                 if (Position.X + incX < 0) incX = -incX;
                 if (Position.X + incX > width) incX = -incX;
                 if (Position.Y + incY < 0) incY = -incY;
                 if (Position.Y + incY > hight) incY = -incY;
 
+                Console.WriteLine($"Gender {this.Gender}");
+                Console.WriteLine($"old position:    {this.Position.X}, {this.Position.Y}");
+                Console.WriteLine($"target position: {this.Target.Position.X}, {this.Target.Position.Y}");
+
+                Console.WriteLine($"int creaments: x={incX}, y={incY}");
+
                 Position.X += incX;
                 Position.Y += incY;
+                Console.WriteLine($"new position:    {this.Position.X}, {this.Position.Y}");
+                Console.WriteLine("===========================================");
             }
 
             //Console.WriteLine($"position {Gender}: {Position.X}, {Position.Y}");
-            Console.WriteLine($"position {Gender}: target {Target}");
+            //Console.WriteLine($"position {Gender}: target {Target}");
         }
 
         private void moveInRandomDirection()

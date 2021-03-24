@@ -8,8 +8,6 @@ namespace GameOfLife.GameField
 {
     class Food : AbstractTarget, ITarget
     {
-        public Point Position { get; set; }
-
         public int Amount { get; set; }
 
         public Food(int amount, int x, int y)
