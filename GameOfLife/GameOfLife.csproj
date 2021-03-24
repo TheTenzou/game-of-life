@@ -52,7 +52,7 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Targets\AbstractTarget.cs" />
+    <Compile Include="Targets\AbstractEntity.cs" />
     <Compile Include="Targets\Creatures\Creature.cs" />
     <Compile Include="Targets\Creatures\Gender.cs" />
     <Compile Include="Targets\Creatures\ICreature.cs" />

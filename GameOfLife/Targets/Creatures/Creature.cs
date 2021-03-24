@@ -7,7 +7,7 @@ using GameOfLife.Targets.Foods;
 
 namespace GameOfLife.Targets.Creatures
 {
-    class Creature : AbstractTarget, ICreature, IEntity
+    class Creature : AbstractEntity, ICreature, IEntity
     {
         private Random random = new Random();
         public Gender Gender { get; }
