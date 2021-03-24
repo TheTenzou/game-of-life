@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameOfLife.Targets;
+using GameOfLife.Targets.Creatures;
 
-namespace GameOfLife.Targets.Entities
+namespace GameOfLife.Targets.Creatures
 {
-    interface IEntity
-    {
+    interface ICreature : IEntity
+    { 
         Gender Gender { get; }
 
         int FoodAmount { get; set; }
 
-        ITarget Target { get; set; }
+        IEntity Target { get; set; }
 
         Status Status { get; set; }
 
         Point Position { get; set; }
 
-        void PickTarget(List<ITarget> targets);
+        void PickTarget(List<IEntity> targets);
 
         void MoveToTarget();
     }

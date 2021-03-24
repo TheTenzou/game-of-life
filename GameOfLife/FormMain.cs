@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameOfLife.GameField;
 using GameOfLife.Targets;
-using GameOfLife.Targets.Entities;
+using GameOfLife.Targets.Creatures;
 using GameOfLife.Targets.Foods;
 using PointSD = System.Drawing.Point;
 using Point = GameOfLife.Targets.Point;
@@ -44,14 +44,14 @@ namespace GameOfLife
 
         private void FormMain_Paint(object sender, PaintEventArgs e)
         {
-            foreach(ITarget item in field.Targets)
+            foreach(IEntity item in field.Targets)
             {
                 drawItems(e, item);
             }
 
         }
 
-        void drawItems(PaintEventArgs e, ITarget item)
+        void drawItems(PaintEventArgs e, IEntity item)
         {
             graphics = e.Graphics;
             if (item is Food)
@@ -59,15 +59,15 @@ namespace GameOfLife
                 //graphics.FillEllipse(Brushes.Green, getRectangle(item.Position));
                 graphics.FillEllipse(Brushes.Green, item.Position.X, item.Position.Y, 10, 10);
             }
-            else if (item is Entity)
+            else if (item is Creature)
             {
                 drawEntity(item);
             }
         }
 
-        void drawEntity(ITarget item)
+        void drawEntity(IEntity item)
         {
-            Entity entity = (Entity)item;
+            Creature entity = (Creature)item;
             switch (entity.Gender)
             {
                 case Gender.MALE:

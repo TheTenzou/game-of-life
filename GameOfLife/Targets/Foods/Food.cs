@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.Targets.Foods
 {
-    class Food : AbstractTarget, ITarget
+    class Food : AbstractTarget, IEntity
     {
         public int Amount { get; set; }
 

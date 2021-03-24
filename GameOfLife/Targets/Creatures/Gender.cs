@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.Targets.Entities
+namespace GameOfLife.Targets.Creatures
 {
-    enum Status
+    enum Gender
     {
-        DEAD,
-        ALIVE
+        MALE,
+        FEMALE
     }
 }

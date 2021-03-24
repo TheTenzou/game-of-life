@@ -53,12 +53,12 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Targets\AbstractTarget.cs" />
-    <Compile Include="Targets\Entities\Entity.cs" />
-    <Compile Include="Targets\Entities\Gender.cs" />
-    <Compile Include="Targets\Entities\IEntity.cs" />
-    <Compile Include="Targets\ITarget.cs" />
+    <Compile Include="Targets\Creatures\Creature.cs" />
+    <Compile Include="Targets\Creatures\Gender.cs" />
+    <Compile Include="Targets\Creatures\ICreature.cs" />
+    <Compile Include="Targets\IEntity.cs" />
     <Compile Include="Targets\Point.cs" />
-    <Compile Include="Targets\Entities\Status.cs" />
+    <Compile Include="Targets\Creatures\Status.cs" />
     <Compile Include="GameField\Field.cs" />
     <Compile Include="Targets\Foods\Food.cs" />
     <Compile Include="Program.cs" />

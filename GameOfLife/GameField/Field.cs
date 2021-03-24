@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameOfLife.Targets;
-using GameOfLife.Targets.Entities;
+using GameOfLife.Targets.Creatures;
 using GameOfLife.Targets.Foods;
 
 namespace GameOfLife.GameField
@@ -13,22 +13,22 @@ namespace GameOfLife.GameField
     {
         private int width = 320;
         private int hight = 240;
-        public List<ITarget> Targets { get; }
+        public List<IEntity> Targets { get; }
         private Random random = new Random();
 
         private static Field instance;
 
         private Field()
         {
-            Targets = new List<ITarget>();
+            Targets = new List<IEntity>();
 
-            Entity entityMale = new Entity(Gender.MALE);
+            Creature entityMale = new Creature(Gender.MALE);
             entityMale.Position = new Point(20, 50);
             entityMale.FoodAmount = 20;
 
             Targets.Add(entityMale);
 
-            Entity entityFemale = new Entity(Gender.FEMALE);
+            Creature entityFemale = new Creature(Gender.FEMALE);
             entityFemale.Position = new Point(202, 180);
             entityFemale.FoodAmount = 20;
 
@@ -49,11 +49,11 @@ namespace GameOfLife.GameField
 
         public void UpdateField()
         {
-            foreach(ITarget target in Targets)
+            foreach(IEntity target in Targets)
             {
-                if (target is Entity)
+                if (target is Creature)
                 {
-                    IEntity entity = (IEntity)target;
+                    ICreature entity = (ICreature)target;
                     entity.PickTarget(Targets);
                     entity.MoveToTarget();
                 }
@@ -66,7 +66,7 @@ namespace GameOfLife.GameField
             int foodAmount = random.Next(0, 100);
             for (int i = 0; i < foodAmount; i++)
             {
-                ITarget target = new Food(
+                IEntity target = new Food(
                     random.Next(0, 30), 
                     random.Next(0, width), 
                     random.Next(0, hight)

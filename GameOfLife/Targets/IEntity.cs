@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.Targets
 {
-    interface ITarget
+    interface IEntity
     {
         Point Position { get; set; }
     }

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using GameOfLife.Targets.Foods;
 
-namespace GameOfLife.Targets.Entities
+namespace GameOfLife.Targets.Creatures
 {
-    class Entity : AbstractTarget, IEntity, ITarget
+    class Creature : AbstractTarget, ICreature, IEntity
     {
         private Random random = new Random();
         public Gender Gender { get; }
@@ -24,27 +24,27 @@ namespace GameOfLife.Targets.Entities
             }
         }
 
-        public ITarget Target { get; set; }
+        public IEntity Target { get; set; }
 
         public Status Status { get; set; }
 
         private int width = 320;
         private int hight = 240;
 
-        public Entity(Gender gender)
+        public Creature(Gender gender)
         {
             this.Gender = gender;
             this.Status = Status.ALIVE;
             this.FoodAmount = 20;
         }
 
-        public Entity(Gender gender, int width, int hight) : this(gender)
+        public Creature(Gender gender, int width, int hight) : this(gender)
         {
             this.width = width;
             this.hight = hight;
         }
 
-        public void PickTarget(List<ITarget> targets)
+        public void PickTarget(List<IEntity> targets)
         {
             //int rand = random.Next() % 100;
 
@@ -52,7 +52,7 @@ namespace GameOfLife.Targets.Entities
             {
                 if (this.FoodAmount < 10)
                 {
-                    List<ITarget> listOfFood = targets.Where(t => t is Food).ToList();
+                    List<IEntity> listOfFood = targets.Where(t => t is Food).ToList();
 
                     if (listOfFood.Count > 0)
                     {
@@ -64,13 +64,13 @@ namespace GameOfLife.Targets.Entities
             pickRandomTarget(targets);
         }
 
-        private ITarget lookForFood(List<ITarget> listOfFood)
+        private IEntity lookForFood(List<IEntity> listOfFood)
         {
-            ITarget closestFood = listOfFood.First();
+            IEntity closestFood = listOfFood.First();
 
             double distanceToClosest = 0.0;
 
-            foreach(ITarget target in listOfFood)
+            foreach(IEntity target in listOfFood)
             {
                 if (distanceToClosest < this.Distance(target))
                 {
@@ -81,13 +81,13 @@ namespace GameOfLife.Targets.Entities
             return closestFood;
         }
 
-        private void pickRandomTarget(List<ITarget> targets)
+        private void pickRandomTarget(List<IEntity> targets)
         {
             for (int i = 0; i < targets.Count; i++)
             {
                 int index = random.Next(0, targets.Count);
 
-                ITarget newTarget = targets[index];
+                IEntity newTarget = targets[index];
                 
                 if (isTargetValid(newTarget))
                 {
@@ -97,13 +97,13 @@ namespace GameOfLife.Targets.Entities
             }
         }
 
-        private bool isTargetValid(ITarget target)
+        private bool isTargetValid(IEntity target)
         {
             if (target is Food)
             {
                 return true;
             }
-            else if (target is IEntity && ((IEntity)target).Gender != this.Gender)
+            else if (target is IEntity && ((Creature)target).Gender != this.Gender)
             {
                 return true;
             }
