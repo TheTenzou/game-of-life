@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.GameField
+namespace GameOfLife.Targets
 {
     abstract class AbstractTarget : ITarget
     {

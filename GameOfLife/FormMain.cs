@@ -8,8 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameOfLife.GameField;
-using GameOfLife.GameField.Entities;
-using Point = System.Drawing.Point;
+using GameOfLife.Targets;
+using GameOfLife.Targets.Entities;
+using GameOfLife.Targets.Foods;
+using PointSD = System.Drawing.Point;
+using Point = GameOfLife.Targets.Point;
 
 namespace GameOfLife
 {
@@ -24,7 +27,7 @@ namespace GameOfLife
         public FormMain()
         {
             InitializeComponent();
-            field = new Field(320, 240);
+            field = Field.getInstance();
         }
 
         private void updateField_Tick(object sender, EventArgs e)
@@ -83,14 +86,14 @@ namespace GameOfLife
             }
         }
 
-        private Rectangle getRectangle(GameField.Point point)
+        private Rectangle getRectangle(Point point)
         {
-            Point newPont = convertPoint(point);
+            PointSD newPont = convertPoint(point);
 
             return new Rectangle(newPont.X, newPont.Y, 10, 10);
         }
 
-        private Point convertPoint(GameField.Point point)
+        private PointSD convertPoint(Point point)
         {
             int windowWidth = this.Right;
             int windowHight = this.Bottom;
@@ -98,7 +101,7 @@ namespace GameOfLife
             int newX = (int)(point.X * (((double)windowWidth) / width));
             int newY = (int)(point.Y * (((double)windowHight) / hight));
 
-            return new Point(newX-5, newY-5);
+            return new PointSD(newX-5, newY-5);
         }
     }
 }

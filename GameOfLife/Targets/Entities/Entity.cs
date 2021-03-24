@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameOfLife.Targets.Foods;
 
-namespace GameOfLife.GameField.Entities
+namespace GameOfLife.Targets.Entities
 {
     class Entity : AbstractTarget, IEntity, ITarget
     {
@@ -26,7 +27,7 @@ namespace GameOfLife.GameField.Entities
         public ITarget Target { get; set; }
 
         public Status Status { get; set; }
-        
+
         private int width = 320;
         private int hight = 240;
 
@@ -119,29 +120,13 @@ namespace GameOfLife.GameField.Entities
             else
             {
                 double len = this.Distance(Target);
-                int incX = (int) ((Target.Position.X - this.Position.X) / len * 2) ;
-                int incY = (int) ((Target.Position.Y - this.Position.Y) / len * 2) ;
+                int incX = (int) ((Target.Position.X - this.Position.X) / len * 2);
+                int incY = (int) ((Target.Position.Y - this.Position.Y) / len * 2);
 
+                inverIfOutOfBounce(ref incX, ref incY);
 
-                if (Position.X + incX < 0) incX = -incX;
-                if (Position.X + incX > width) incX = -incX;
-                if (Position.Y + incY < 0) incY = -incY;
-                if (Position.Y + incY > hight) incY = -incY;
-
-                Console.WriteLine($"Gender {this.Gender}");
-                Console.WriteLine($"old position:    {this.Position.X}, {this.Position.Y}");
-                Console.WriteLine($"target position: {this.Target.Position.X}, {this.Target.Position.Y}");
-
-                Console.WriteLine($"int creaments: x={incX}, y={incY}");
-
-                Position.X += incX;
-                Position.Y += incY;
-                Console.WriteLine($"new position:    {this.Position.X}, {this.Position.Y}");
-                Console.WriteLine("===========================================");
+                setPosition(new Point(Position.X + incX, Position.Y + incY));
             }
-
-            //Console.WriteLine($"position {Gender}: {Position.X}, {Position.Y}");
-            //Console.WriteLine($"position {Gender}: target {Target}");
         }
 
         private void moveInRandomDirection()
@@ -152,13 +137,22 @@ namespace GameOfLife.GameField.Entities
             int incX = (int)(velocity * Math.Cos(direction));
             int incY = (int)(velocity * Math.Sin(direction));
 
+            inverIfOutOfBounce(ref incX, ref incY);
+
+            setPosition(new Point(Position.X + incX, Position.Y + incY));
+        }
+
+        private void inverIfOutOfBounce(ref int incX, ref int incY)
+        {
             if (Position.X + incX < 0) incX = -incX;
             if (Position.X + incX > width) incX = -incX;
             if (Position.Y + incY < 0) incY = -incY;
             if (Position.Y + incY > hight) incY = -incY;
+        }
 
-            Position.X += incX;
-            Position.Y += incY;
+        private void setPosition(Point point)
+        {
+            this.Position = point;
         }
     }
 }

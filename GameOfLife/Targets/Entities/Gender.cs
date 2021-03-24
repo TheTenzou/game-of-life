@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.GameField
+namespace GameOfLife.Targets.Entities
 {
-    interface ITarget
+    enum Gender
     {
-        Point Position { get; set; }
+        MALE,
+        FEMALE
     }
 }

@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameOfLife.GameField.Entities;
+using GameOfLife.Targets;
+using GameOfLife.Targets.Entities;
+using GameOfLife.Targets.Foods;
 
 namespace GameOfLife.GameField
 {
     class Field
     {
-        private int width;
-        private int hight;
+        private int width = 320;
+        private int hight = 240;
         public List<ITarget> Targets { get; }
         private Random random = new Random();
 
-        public Field(int width, int hight)
-        {
-            this.width = width;
-            this.hight = hight;
+        private static Field instance;
 
+        private Field()
+        {
             Targets = new List<ITarget>();
 
             Entity entityMale = new Entity(Gender.MALE);
@@ -36,7 +37,15 @@ namespace GameOfLife.GameField
             GenerateFood();
         }
 
-        public Field() : this(320, 240) { } 
+        public static Field getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new Field();
+            }
+            return instance;
+        }
+
 
         public void UpdateField()
         {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.GameField.Entities
+namespace GameOfLife.Targets.Entities
 {
     interface IEntity
     {

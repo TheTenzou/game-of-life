@@ -52,15 +52,15 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameField\AbstractTarget.cs" />
-    <Compile Include="GameField\Entities\Entity.cs" />
-    <Compile Include="GameField\Entities\Gender.cs" />
-    <Compile Include="GameField\Entities\IEntity.cs" />
-    <Compile Include="GameField\ITarget.cs" />
-    <Compile Include="GameField\Point.cs" />
-    <Compile Include="GameField\Entities\Status.cs" />
+    <Compile Include="Targets\AbstractTarget.cs" />
+    <Compile Include="Targets\Entities\Entity.cs" />
+    <Compile Include="Targets\Entities\Gender.cs" />
+    <Compile Include="Targets\Entities\IEntity.cs" />
+    <Compile Include="Targets\ITarget.cs" />
+    <Compile Include="Targets\Point.cs" />
+    <Compile Include="Targets\Entities\Status.cs" />
     <Compile Include="GameField\Field.cs" />
-    <Compile Include="GameField\Food.cs" />
+    <Compile Include="Targets\Foods\Food.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMain.resx">
