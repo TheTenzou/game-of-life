@@ -42,12 +42,13 @@ namespace GameOfLife.GameField
         {
             foreach(ITarget target in Targets)
             {
-                if (target is IEntity)
+                if (target is Entity)
                 {
                     IEntity entity = (IEntity)target;
                     entity.PickTarget(Targets);
                     entity.MoveToTarget();
                 }
+                
             }
         }
 

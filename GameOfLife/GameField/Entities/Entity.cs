@@ -126,7 +126,18 @@ namespace GameOfLife.GameField.Entities
 
                 int incX = (int)(velocity * tang);
                 int incY = (int)(velocity * tang);
+
+                if (Position.X + incX < 0) incX = -incX;
+                if (Position.X + incX > width) incX = -incX;
+                if (Position.Y + incY < 0) incY = -incY;
+                if (Position.Y + incY > hight) incY = -incY;
+
+                Position.X += incX;
+                Position.Y += incY;
             }
+
+            //Console.WriteLine($"position {Gender}: {Position.X}, {Position.Y}");
+            Console.WriteLine($"position {Gender}: target {Target}");
         }
 
         private void moveInRandomDirection()
