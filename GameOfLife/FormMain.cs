@@ -83,6 +83,7 @@ namespace GameOfLife
             {
                 //graphics.DrawLine(Pens.Red, convertPoint(entity.Position), convertPoint(entity.Target.Position));
                 graphics.DrawLine(Pens.Red, entity.Position.X,entity.Position.Y, entity.Target.Position.X, entity.Target.Position.Y);
+                //Console.WriteLine($"Entity {entity.Position.X} {entity.Position.Y} target {entity.Target.Position.X} {entity.Target.Position.Y}");
             }
         }
 

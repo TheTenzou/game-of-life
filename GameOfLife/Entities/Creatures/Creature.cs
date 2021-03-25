@@ -75,7 +75,7 @@ namespace GameOfLife.Entities.Creatures
 
             foreach(IEntity target in listOfFood)
             {
-                if (distanceToClosest < this.Distance(target))
+                if (distanceToClosest > this.Distance(target) && target != this)
                 {
                     closestFood = target;
                     distanceToClosest = this.Distance(target);
@@ -137,22 +137,24 @@ namespace GameOfLife.Entities.Creatures
 
             this.Position.X += incX;
             this.Position.Y += incY;
+
+            this.FoodAmount -= (int)len;
         }
 
         private void interactWithTarget()
         {
             if (this.Target is Food)
             {
-                Console.WriteLine($"Gender {this.Gender}");
-                Console.WriteLine($"Before eating food: {this.FoodAmount}");
+                //Console.WriteLine($"Gender {this.Gender}");
+                //Console.WriteLine($"Before eating food: {this.FoodAmount}");
 
                 Food food = (Food)this.Target;
                 this.FoodAmount += food.Amount;
                 Field.GetInstance().RemoveEntity(food);
                 this.Target = null;
 
-                Console.WriteLine($"After eating food: {this.FoodAmount}");
-                Console.WriteLine("======================================");
+                //Console.WriteLine($"After eating food: {this.FoodAmount}");
+                //Console.WriteLine("======================================");
             }
             else if (this.Target is Creature)
             {

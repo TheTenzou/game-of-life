@@ -58,10 +58,8 @@ namespace GameOfLife.GameField
 
         public void UpdateField()
         {
-            //foreach(IEntity target in entities)
             for (int i = 0; i < entities.Count; i++)
             {
-                //if (target is Creature)
                 if (entities[i] is Creature)
                 {
                     ICreature entity = (ICreature)entities[i];
@@ -82,10 +80,6 @@ namespace GameOfLife.GameField
                     random.Next(0, width), 
                     random.Next(0, hight)
                 );
-                if (target.Position == null)
-                {
-                    Console.WriteLine("what !!!!!");
-                }
                 entities.Add(target);
             }
         }
