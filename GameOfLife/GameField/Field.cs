@@ -13,31 +13,31 @@ namespace GameOfLife.GameField
     {
         private int width = 320;
         private int hight = 240;
-        public List<IEntity> Targets { get; }
+        public List<IEntity> entities { get; }
         private Random random = new Random();
 
         private static Field instance;
 
         private Field()
         {
-            Targets = new List<IEntity>();
+            entities = new List<IEntity>();
 
             Creature entityMale = new Creature(Gender.MALE);
             entityMale.Position = new Point(20, 50);
             entityMale.FoodAmount = 20;
 
-            Targets.Add(entityMale);
+            entities.Add(entityMale);
 
             Creature entityFemale = new Creature(Gender.FEMALE);
             entityFemale.Position = new Point(202, 180);
             entityFemale.FoodAmount = 20;
 
-            Targets.Add(entityFemale);
+            entities.Add(entityFemale);
 
             GenerateFood();
         }
 
-        public static Field getInstance()
+        public static Field GetInstance()
         {
             if (instance == null)
             {
@@ -46,15 +46,19 @@ namespace GameOfLife.GameField
             return instance;
         }
 
+        public void AddEntitiy(IEntity entity)
+        {
+            this.entities.Add(entity);
+        }
 
         public void UpdateField()
         {
-            foreach(IEntity target in Targets)
+            foreach(IEntity target in entities)
             {
                 if (target is Creature)
                 {
                     ICreature entity = (ICreature)target;
-                    entity.PickTarget(Targets);
+                    entity.PickTarget(entities);
                     entity.MoveToTarget();
                 }
                 
@@ -75,7 +79,7 @@ namespace GameOfLife.GameField
                 {
                     Console.WriteLine("what !!!!!");
                 }
-                Targets.Add(target);
+                entities.Add(target);
             }
         }
     }

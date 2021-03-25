@@ -27,7 +27,7 @@ namespace GameOfLife
         public FormMain()
         {
             InitializeComponent();
-            field = Field.getInstance();
+            field = Field.GetInstance();
         }
 
         private void updateField_Tick(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace GameOfLife
 
         private void FormMain_Paint(object sender, PaintEventArgs e)
         {
-            foreach(IEntity item in field.Targets)
+            foreach(IEntity item in field.entities)
             {
                 drawItems(e, item);
             }
