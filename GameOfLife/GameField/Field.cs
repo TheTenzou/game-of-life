@@ -24,13 +24,13 @@ namespace GameOfLife.GameField
 
             Creature entityMale = new Creature(Gender.MALE);
             entityMale.Position = new Point(20, 50);
-            entityMale.FoodAmount = 20;
+            entityMale.FoodAmount = 40;
 
             entities.Add(entityMale);
 
             Creature entityFemale = new Creature(Gender.FEMALE);
             entityFemale.Position = new Point(202, 180);
-            entityFemale.FoodAmount = 20;
+            entityFemale.FoodAmount = 40;
 
             entities.Add(entityFemale);
 

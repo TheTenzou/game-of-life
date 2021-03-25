@@ -46,12 +46,12 @@ namespace GameOfLife
         {
             foreach(IEntity item in field.entities)
             {
-                drawItems(e, item);
+                drawEntity(e, item);
             }
 
         }
 
-        void drawItems(PaintEventArgs e, IEntity item)
+        void drawEntity(PaintEventArgs e, IEntity item)
         {
             graphics = e.Graphics;
             if (item is Food)
@@ -61,13 +61,25 @@ namespace GameOfLife
             }
             else if (item is Creature)
             {
-                drawEntity(item);
+                drawCreature(item);
             }
         }
 
-        void drawEntity(IEntity item)
+        void drawCreature(IEntity item)
         {
             Creature entity = (Creature)item;
+            if (entity.Status == Status.ALIVE)
+            {
+                drawAliveCreature(entity);
+            }
+            else
+            {
+                graphics.FillEllipse(Brushes.Gray, entity.Position.X, entity.Position.Y, 10, 10);
+            }
+        }
+
+        private void drawAliveCreature(Creature entity)
+        {
             switch (entity.Gender)
             {
                 case Gender.MALE:
@@ -79,10 +91,11 @@ namespace GameOfLife
                     graphics.FillEllipse(Brushes.Crimson, entity.Position.X, entity.Position.Y, 10, 10);
                     break;
             }
+
             if (entity.Target != null)
             {
                 //graphics.DrawLine(Pens.Red, convertPoint(entity.Position), convertPoint(entity.Target.Position));
-                graphics.DrawLine(Pens.Red, entity.Position.X,entity.Position.Y, entity.Target.Position.X, entity.Target.Position.Y);
+                graphics.DrawLine(Pens.Red, entity.Position.X, entity.Position.Y, entity.Target.Position.X, entity.Target.Position.Y);
                 //Console.WriteLine($"Entity {entity.Position.X} {entity.Position.Y} target {entity.Target.Position.X} {entity.Target.Position.Y}");
             }
         }

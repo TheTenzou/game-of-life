@@ -20,7 +20,11 @@ namespace GameOfLife.Entities.Creatures
             set
             {
                 if (value > 100) food = 100;
-                else if (value < 1) food = 0;
+                else if (value < 1)
+                {
+                    food = 0;
+                    this.Status = Status.DEAD;
+                }
                 else food = value;
             }
         }
@@ -47,6 +51,8 @@ namespace GameOfLife.Entities.Creatures
 
         public void PickTarget(List<IEntity> targets)
         {
+            if (this.Status == Status.DEAD)
+                return;
 
             if (this.Target == null)
             {
@@ -55,9 +61,7 @@ namespace GameOfLife.Entities.Creatures
             }
 
             if (this.FoodAmount > 10)
-            {
                 return;
-            }
 
             List<IEntity> listOfFood = targets.Where(t => t is Food).ToList();
 
@@ -106,7 +110,7 @@ namespace GameOfLife.Entities.Creatures
             {
                 return true;
             }
-            else if (target is IEntity && ((Creature)target).Gender != this.Gender)
+            else if (target is IEntity && ((Creature)target).Status != Status.DEAD && target != this)
             {
                 return true;
             }
@@ -116,6 +120,9 @@ namespace GameOfLife.Entities.Creatures
 
         public void MoveToTarget()
         {
+            if (this.Status == Status.DEAD)
+                return;
+
             if (Target == null)
             {
                 moveInRandomDirection();
@@ -124,37 +131,37 @@ namespace GameOfLife.Entities.Creatures
 
             double len = this.Distance(Target);
 
-            if (len < 2.0)
+            if (len < 5.0)
             {
                 interactWithTarget();
                 return;
             }
 
-            int incX = (int) ((Target.Position.X - this.Position.X) / len * 2);
-            int incY = (int) ((Target.Position.Y - this.Position.Y) / len * 2);
+            int incX = (int) ((Target.Position.X - this.Position.X) / len * 5);
+            int incY = (int) ((Target.Position.Y - this.Position.Y) / len * 5);
 
             inverIfOutOfBounce(ref incX, ref incY);
 
             this.Position.X += incX;
             this.Position.Y += incY;
 
-            this.FoodAmount -= (int)len;
+            this.FoodAmount -= 1;
         }
 
         private void interactWithTarget()
         {
             if (this.Target is Food)
             {
-                //Console.WriteLine($"Gender {this.Gender}");
-                //Console.WriteLine($"Before eating food: {this.FoodAmount}");
+                Console.WriteLine($"Gender {this.Gender}");
+                Console.WriteLine($"Before eating food: {this.FoodAmount}");
 
                 Food food = (Food)this.Target;
                 this.FoodAmount += food.Amount;
                 Field.GetInstance().RemoveEntity(food);
                 this.Target = null;
 
-                //Console.WriteLine($"After eating food: {this.FoodAmount}");
-                //Console.WriteLine("======================================");
+                Console.WriteLine($"After eating food: {this.FoodAmount}");
+                Console.WriteLine("======================================");
             }
             else if (this.Target is Creature)
             {
