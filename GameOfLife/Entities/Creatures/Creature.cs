@@ -166,8 +166,50 @@ namespace GameOfLife.Entities.Creatures
             else if (this.Target is Creature)
             {
                 Creature creature = (Creature)this.Target;
-                
+                reproduce(creature);
             }
+        }
+
+        private void reproduce(Creature creature)
+        {
+            if (this.FoodAmount < 20 && creature.FoodAmount < 20)
+            {
+                createChild();
+                createChild();
+            }
+            else if (this.FoodAmount < 10 && creature.FoodAmount < 10)
+            {
+                createChild();
+            }
+            else if (this.FoodAmount < 40 && creature.FoodAmount < 40)
+            {
+                createChild();
+                createChild();
+                createChild();
+            }
+            else if (this.FoodAmount < 60 && creature.FoodAmount < 60)
+            {
+                createChild();
+                createChild();
+                createChild();
+                createChild();
+            }
+        }
+
+        private void createChild()
+        {
+            Type type = typeof(Gender);
+            Array values = type.GetEnumValues();
+            int index = random.Next(values.Length);
+            Gender value = (Gender)values.GetValue(index);
+
+            int offset = random.Next(-5, 5);
+
+            Creature child = new Creature(value);
+            child.Position = new Point(this.Position.X + offset, this.Position.Y + offset);
+            child.FoodAmount = 40;
+
+            Field.GetInstance().AddEntitiy(child);
         }
 
         private void moveInRandomDirection()

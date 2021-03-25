@@ -72,7 +72,7 @@ namespace GameOfLife.GameField
 
         public void GenerateFood()
         {
-            int foodAmount = random.Next(0, 100);
+            int foodAmount = random.Next(0, 40);
             for (int i = 0; i < foodAmount; i++)
             {
                 IEntity target = new Food(
