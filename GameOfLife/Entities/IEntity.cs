@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.Targets.Creatures
+namespace GameOfLife.Entities
 {
-    enum Status
+    interface IEntity
     {
-        DEAD,
-        ALIVE
+        Point Position { get; set; }
     }
 }

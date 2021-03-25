@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.Targets
 {
-    abstract class AbstractEntity : IEntity
+    abstract class AbstarctEntity : IEntity
     {
         public Point Position { get; set; }
 

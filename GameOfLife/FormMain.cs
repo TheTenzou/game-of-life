@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameOfLife.GameField;
-using GameOfLife.Targets;
-using GameOfLife.Targets.Creatures;
-using GameOfLife.Targets.Foods;
+using GameOfLife.Entities;
+using GameOfLife.Entities.Creatures;
+using GameOfLife.Entities.Foods;
 using PointSD = System.Drawing.Point;
-using Point = GameOfLife.Targets.Point;
+using Point = GameOfLife.Entities.Point;
 
 namespace GameOfLife
 {

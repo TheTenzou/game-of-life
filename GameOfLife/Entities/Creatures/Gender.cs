@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.Targets.Creatures
+namespace GameOfLife.Entities.Creatures
 {
     enum Gender
     {

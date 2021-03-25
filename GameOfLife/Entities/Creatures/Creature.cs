@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameOfLife.Targets.Foods;
+using GameOfLife.Entities.Foods;
 
-namespace GameOfLife.Targets.Creatures
+namespace GameOfLife.Entities.Creatures
 {
     class Creature : AbstractEntity, ICreature, IEntity
     {

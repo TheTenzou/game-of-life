@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameOfLife.Targets;
-using GameOfLife.Targets.Creatures;
+using GameOfLife.Entities;
+using GameOfLife.Entities.Creatures;
 
-namespace GameOfLife.Targets.Creatures
+namespace GameOfLife.Entities.Creatures
 {
     interface ICreature : IEntity
     { 
