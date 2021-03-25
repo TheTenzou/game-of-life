@@ -50,14 +50,21 @@ namespace GameOfLife.GameField
         {
             this.entities.Add(entity);
         }
+        
+        public void RemoveEntity(IEntity entity)
+        {
+            this.entities.Remove(entity);
+        }
 
         public void UpdateField()
         {
-            foreach(IEntity target in entities)
+            //foreach(IEntity target in entities)
+            for (int i = 0; i < entities.Count; i++)
             {
-                if (target is Creature)
+                //if (target is Creature)
+                if (entities[i] is Creature)
                 {
-                    ICreature entity = (ICreature)target;
+                    ICreature entity = (ICreature)entities[i];
                     entity.PickTarget(entities);
                     entity.MoveToTarget();
                 }

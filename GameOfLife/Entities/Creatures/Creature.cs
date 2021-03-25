@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameOfLife.GameField;
 using GameOfLife.Entities.Foods;
 
 namespace GameOfLife.Entities.Creatures
@@ -46,29 +47,31 @@ namespace GameOfLife.Entities.Creatures
 
         public void PickTarget(List<IEntity> targets)
         {
-            //int rand = random.Next() % 100;
 
-            if (this.Target != null)
+            if (this.Target == null)
             {
-                if (this.FoodAmount < 10)
-                {
-                    List<IEntity> listOfFood = targets.Where(t => t is Food).ToList();
-
-                    if (listOfFood.Count > 0)
-                    {
-                        Target = lookForFood(targets);
-                    }
-                }
+                pickRandomTarget(targets);
                 return;
             }
-            pickRandomTarget(targets);
+
+            if (this.FoodAmount > 10)
+            {
+                return;
+            }
+
+            List<IEntity> listOfFood = targets.Where(t => t is Food).ToList();
+
+            if (listOfFood.Count > 0)
+            {
+                Target = lookForFood(targets);
+            }
         }
 
         private IEntity lookForFood(List<IEntity> listOfFood)
         {
             IEntity closestFood = listOfFood.First();
 
-            double distanceToClosest = 0.0;
+            double distanceToClosest = Double.MaxValue;
 
             foreach(IEntity target in listOfFood)
             {
@@ -116,16 +119,45 @@ namespace GameOfLife.Entities.Creatures
             if (Target == null)
             {
                 moveInRandomDirection();
+                return;
             }
-            else
+
+            double len = this.Distance(Target);
+
+            if (len < 2.0)
             {
-                double len = this.Distance(Target);
-                int incX = (int) ((Target.Position.X - this.Position.X) / len * 2);
-                int incY = (int) ((Target.Position.Y - this.Position.Y) / len * 2);
+                interactWithTarget();
+                return;
+            }
 
-                inverIfOutOfBounce(ref incX, ref incY);
+            int incX = (int) ((Target.Position.X - this.Position.X) / len * 2);
+            int incY = (int) ((Target.Position.Y - this.Position.Y) / len * 2);
 
-                setPosition(new Point(Position.X + incX, Position.Y + incY));
+            inverIfOutOfBounce(ref incX, ref incY);
+
+            this.Position.X += incX;
+            this.Position.Y += incY;
+        }
+
+        private void interactWithTarget()
+        {
+            if (this.Target is Food)
+            {
+                Console.WriteLine($"Gender {this.Gender}");
+                Console.WriteLine($"Before eating food: {this.FoodAmount}");
+
+                Food food = (Food)this.Target;
+                this.FoodAmount += food.Amount;
+                Field.GetInstance().RemoveEntity(food);
+                this.Target = null;
+
+                Console.WriteLine($"After eating food: {this.FoodAmount}");
+                Console.WriteLine("======================================");
+            }
+            else if (this.Target is Creature)
+            {
+                Creature creature = (Creature)this.Target;
+                
             }
         }
 
@@ -139,7 +171,8 @@ namespace GameOfLife.Entities.Creatures
 
             inverIfOutOfBounce(ref incX, ref incY);
 
-            setPosition(new Point(Position.X + incX, Position.Y + incY));
+            this.Position.X += incX;
+            this.Position.Y += incY;
         }
 
         private void inverIfOutOfBounce(ref int incX, ref int incY)
@@ -148,11 +181,6 @@ namespace GameOfLife.Entities.Creatures
             if (Position.X + incX > width) incX = -incX;
             if (Position.Y + incY < 0) incY = -incY;
             if (Position.Y + incY > hight) incY = -incY;
-        }
-
-        private void setPosition(Point point)
-        {
-            this.Position = point;
         }
     }
 }
