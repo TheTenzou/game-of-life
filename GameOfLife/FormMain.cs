@@ -21,8 +21,6 @@ namespace GameOfLife
         private Field field;
         private int cycleCount = 0;
         private Graphics graphics;
-        private int width = 320;
-        private int hight = 240;
 
         public FormMain()
         {
@@ -56,8 +54,8 @@ namespace GameOfLife
             graphics = e.Graphics;
             if (item is Food)
             {
-                //graphics.FillEllipse(Brushes.Green, getRectangle(item.Position));
-                graphics.FillEllipse(Brushes.Green, item.Position.X, item.Position.Y, 10, 10);
+                graphics.FillEllipse(Brushes.Green, getRectangle(item.Position));
+                //graphics.FillEllipse(Brushes.Green, item.Position.X, item.Position.Y, 10, 10);
             }
             else if (item is Creature)
             {
@@ -68,35 +66,57 @@ namespace GameOfLife
         void drawCreature(IEntity item)
         {
             Creature entity = (Creature)item;
-            if (entity.Status == Status.ALIVE)
+            if (entity.Status != Status.DEAD)
             {
                 drawAliveCreature(entity);
             }
             else
             {
-                graphics.FillEllipse(Brushes.Gray, entity.Position.X, entity.Position.Y, 10, 10);
+                //graphics.FillEllipse(Brushes.Gray, entity.Position.X, entity.Position.Y, 10, 10);
+                graphics.FillEllipse(Brushes.Gray, getRectangle(entity.Position));
             }
         }
 
         private void drawAliveCreature(Creature entity)
         {
-            switch (entity.Gender)
+            if (entity.Status == Status.ADULT)
             {
-                case Gender.MALE:
-                    //graphics.FillEllipse(Brushes.LightBlue, getRectangle(item.Position));
-                    graphics.FillEllipse(Brushes.LightBlue, entity.Position.X, entity.Position.Y, 10, 10);
-                    break;
-                case Gender.FEMALE:
-                    //graphics.FillEllipse(Brushes.Crimson, getRectangle(item.Position));
-                    graphics.FillEllipse(Brushes.Crimson, entity.Position.X, entity.Position.Y, 10, 10);
-                    break;
+                drawAdult(entity);
+            }
+            else
+            {
+                drawChild(entity);
             }
 
             if (entity.Target != null)
             {
-                //graphics.DrawLine(Pens.Red, convertPoint(entity.Position), convertPoint(entity.Target.Position));
-                graphics.DrawLine(Pens.Red, entity.Position.X, entity.Position.Y, entity.Target.Position.X, entity.Target.Position.Y);
-                //Console.WriteLine($"Entity {entity.Position.X} {entity.Position.Y} target {entity.Target.Position.X} {entity.Target.Position.Y}");
+                graphics.DrawLine(Pens.Red, convertPoint(entity.Position), convertPoint(entity.Target.Position));
+            }
+        }
+
+        private void drawAdult(Creature entity)
+        {
+            switch (entity.Gender)
+            {
+                case Gender.MALE:
+                    graphics.FillEllipse(Brushes.Blue, getRectangle(entity.Position));
+                    break;
+                case Gender.FEMALE:
+                    graphics.FillEllipse(Brushes.Crimson, getRectangle(entity.Position));
+                    break;
+            }
+        }
+
+        private void drawChild(Creature entity)
+        {
+            switch (entity.Gender)
+            {
+                case Gender.MALE:
+                    graphics.FillEllipse(Brushes.Aqua, getRectangle(entity.Position));
+                    break;
+                case Gender.FEMALE:
+                    graphics.FillEllipse(Brushes.Pink, getRectangle(entity.Position));
+                    break;
             }
         }
 
@@ -109,11 +129,11 @@ namespace GameOfLife
 
         private PointSD convertPoint(Point point)
         {
-            int windowWidth = this.Right;
-            int windowHight = this.Bottom;
+            int windowWidth = this.Width - 10;
+            int windowHight = this.Height - 10;
 
-            int newX = (int)(point.X * (((double)windowWidth) / width));
-            int newY = (int)(point.Y * (((double)windowHight) / hight));
+            int newX = (int)(point.X * (((double)windowWidth) / 320));
+            int newY = (int)(point.Y * (((double)windowHight) / 240));
 
             return new PointSD(newX-5, newY-5);
         }

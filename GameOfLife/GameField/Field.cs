@@ -28,11 +28,35 @@ namespace GameOfLife.GameField
 
             entities.Add(entityMale);
 
+            entityMale = new Creature(Gender.MALE);
+            entityMale.Position = new Point(100, 50);
+            entityMale.FoodAmount = 40;
+
+            //entities.Add(entityMale);
+
+            entityMale = new Creature(Gender.MALE);
+            entityMale.Position = new Point(100, 150);
+            entityMale.FoodAmount = 40;
+
+ //           entities.Add(entityMale);
+
             Creature entityFemale = new Creature(Gender.FEMALE);
             entityFemale.Position = new Point(202, 180);
             entityFemale.FoodAmount = 40;
 
             entities.Add(entityFemale);
+
+            entityFemale = new Creature(Gender.FEMALE);
+            entityFemale.Position = new Point(150, 100);
+            entityFemale.FoodAmount = 40;
+
+//            entities.Add(entityFemale);
+
+            entityFemale = new Creature(Gender.FEMALE);
+            entityFemale.Position = new Point(140, 160);
+            entityFemale.FoodAmount = 40;
+
+            //entities.Add(entityFemale);
 
             GenerateFood();
         }
@@ -72,11 +96,11 @@ namespace GameOfLife.GameField
 
         public void GenerateFood()
         {
-            int foodAmount = random.Next(0, 40);
+            int foodAmount = random.Next(40, 70);
             for (int i = 0; i < foodAmount; i++)
             {
                 IEntity target = new Food(
-                    random.Next(0, 30), 
+                    random.Next(0, 40), 
                     random.Next(0, width), 
                     random.Next(0, hight)
                 );

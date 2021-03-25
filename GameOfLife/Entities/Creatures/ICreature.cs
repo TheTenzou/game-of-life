@@ -18,8 +18,6 @@ namespace GameOfLife.Entities.Creatures
 
         Status Status { get; set; }
 
-        Point Position { get; set; }
-
         void PickTarget(List<IEntity> targets);
 
         void MoveToTarget();

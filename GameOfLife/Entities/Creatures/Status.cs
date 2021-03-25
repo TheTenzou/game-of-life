@@ -9,6 +9,7 @@ namespace GameOfLife.Entities.Creatures
     enum Status
     {
         DEAD,
-        ALIVE
+        CHILD,
+        ADULT
     }
 }

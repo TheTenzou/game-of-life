@@ -11,7 +11,17 @@ namespace GameOfLife.Entities.Creatures
     class Creature : AbstractEntity, ICreature, IEntity
     {
         private Random random = new Random();
-        public Gender Gender { get; }
+        public Gender Gender { get; set; }
+
+        private int age = 0;
+
+        public int stepsAfterGiveBirth = 100;
+
+        private void decStepsAfterGiveBirth()
+        {
+            if (stepsAfterGiveBirth > 0)
+                stepsAfterGiveBirth--;
+        }
 
         private int food;
         public int FoodAmount
@@ -24,6 +34,7 @@ namespace GameOfLife.Entities.Creatures
                 {
                     food = 0;
                     this.Status = Status.DEAD;
+                    //Field.GetInstance().RemoveEntity(this);
                 }
                 else food = value;
             }
@@ -39,7 +50,7 @@ namespace GameOfLife.Entities.Creatures
         public Creature(Gender gender)
         {
             this.Gender = gender;
-            this.Status = Status.ALIVE;
+            this.Status = Status.CHILD;
             this.FoodAmount = 20;
         }
 
@@ -54,30 +65,43 @@ namespace GameOfLife.Entities.Creatures
             if (this.Status == Status.DEAD)
                 return;
 
+
             if (this.Target == null)
             {
                 pickRandomTarget(targets);
                 return;
             }
 
-            if (this.FoodAmount > 10)
-                return;
+            if (this.FoodAmount > 40)
+            {
+                List<IEntity> listOfCreatures = targets.Where(it => 
+                        it is ICreature 
+                        && ((Creature)it).Status == Status.ADULT
+                        && ((Creature)it).Gender != this.Gender
+                        && this.stepsAfterGiveBirth < 1 
+                        && ((Creature)it).stepsAfterGiveBirth < 1).ToList();
 
-            List<IEntity> listOfFood = targets.Where(t => t is Food).ToList();
+                if (listOfCreatures.Count > 0)
+                    Target = lookForClosestTarget(listOfCreatures);
+                Console.WriteLine(this.Target.GetType());
+                return;
+            }
+
+            List<IEntity> listOfFood = targets.Where(it => it is Food).ToList();
 
             if (listOfFood.Count > 0)
             {
-                Target = lookForFood(targets);
+                Target = lookForClosestTarget(listOfFood);
             }
         }
 
-        private IEntity lookForFood(List<IEntity> listOfFood)
+        private IEntity lookForClosestTarget(List<IEntity> listOfTargets)
         {
-            IEntity closestFood = listOfFood.First();
+            IEntity closestFood = listOfTargets.First();
 
             double distanceToClosest = Double.MaxValue;
 
-            foreach(IEntity target in listOfFood)
+            foreach(IEntity target in listOfTargets)
             {
                 if (distanceToClosest > this.Distance(target) && target != this)
                 {
@@ -110,8 +134,17 @@ namespace GameOfLife.Entities.Creatures
             {
                 return true;
             }
-            else if (target is IEntity && ((Creature)target).Status != Status.DEAD && target != this)
+            
+            bool isAdultOppositeGender =
+                target is ICreature 
+                && ((Creature)target).Status == Status.ADULT
+                && ((Creature)target).Gender != this.Gender
+                && this.stepsAfterGiveBirth < 1 
+                && ((Creature)target).stepsAfterGiveBirth < 1; 
+            
+            if (isAdultOppositeGender)
             {
+                Console.WriteLine(((Creature)target).Status);
                 return true;
             }
 
@@ -146,32 +179,42 @@ namespace GameOfLife.Entities.Creatures
             this.Position.Y += incY;
 
             this.FoodAmount -= 1;
+            this.age += 1;
+            if (this.age > 50)
+            {
+                this.Status = Status.ADULT;
+            }
+            decStepsAfterGiveBirth();
         }
 
         private void interactWithTarget()
         {
             if (this.Target is Food)
             {
-                Console.WriteLine($"Gender {this.Gender}");
-                Console.WriteLine($"Before eating food: {this.FoodAmount}");
 
                 Food food = (Food)this.Target;
                 this.FoodAmount += food.Amount;
                 Field.GetInstance().RemoveEntity(food);
                 this.Target = null;
-
-                Console.WriteLine($"After eating food: {this.FoodAmount}");
-                Console.WriteLine("======================================");
             }
-            else if (this.Target is Creature)
+            bool isAdultOppositeGender =
+                this.Target is ICreature 
+                && ((Creature)this.Target).Status == Status.ADULT
+                && ((Creature)this.Target).Gender != this.Gender
+                && this.stepsAfterGiveBirth < 1 
+                && ((Creature)this.Target).stepsAfterGiveBirth < 1;
+            if ( isAdultOppositeGender)
             {
                 Creature creature = (Creature)this.Target;
                 reproduce(creature);
+                this.Target = null;
             }
         }
 
         private void reproduce(Creature creature)
         {
+            stepsAfterGiveBirth = 50;
+            creature.stepsAfterGiveBirth = 50;
             if (this.FoodAmount < 20 && creature.FoodAmount < 20)
             {
                 createChild();
@@ -224,6 +267,14 @@ namespace GameOfLife.Entities.Creatures
 
             this.Position.X += incX;
             this.Position.Y += incY;
+
+            this.FoodAmount -= 1;
+            this.age += 1;
+            decStepsAfterGiveBirth();
+            if (this.age > 50)
+            {
+                this.Status = Status.ADULT;
+            }
         }
 
         private void inverIfOutOfBounce(ref int incX, ref int incY)
